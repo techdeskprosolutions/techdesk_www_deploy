@@ -6,8 +6,6 @@ services:
     volumes:
       - ./public_html:/var/www/html
       - ./private:/var/www/private
-    environment:
-      - APACHE_DOCUMENT_ROOT=/var/www/html
     networks:
       - homelab-proxy
       - homelab-backend
