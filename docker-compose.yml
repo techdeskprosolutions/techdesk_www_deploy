@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  techdeskpro:
+    image: php:8.3-apache
+    container_name: techdeskpro
+    restart: unless-stopped
+    volumes:
+      # Web files (public)
+      - ./public_html:/var/www/html
+      # Private files (not web accessible)
+      - ./private:/var/www/private
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+    networks:
+      - homelab-proxy      # So Nginx Proxy Manager can reach it
+      - homelab-backend    # So it can connect to MariaDB
+    depends_on:
+      - mariadb
+
+networks:
+  homelab-proxy:
+    external: true
+  homelab-backend:
+    external: true
